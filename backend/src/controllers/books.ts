@@ -47,8 +47,8 @@ export const getBooksById = (req: Request, res: Response) => {
 export const addBook = (req: Request, res: Response) => {
   try {
     const books = readData();
-    const { title, author, publisher, publishedDate, price, stock, imageUrl } =
-      req.body;
+    const { title, author, publisher, publishedDate, price, stock } = req.body;
+    const imageUrl = req.file ? `/uploads/${req.file.filename}` : null;
 
     if (!title || !author || !price || !stock) {
       res.status(400).json({ message: "Missing required fields" });
@@ -61,8 +61,8 @@ export const addBook = (req: Request, res: Response) => {
       author,
       publisher,
       publishedDate,
-      price,
-      stock,
+      price: parseFloat(price),
+      stock: parseInt(stock, 10),
       imageUrl: imageUrl,
     };
 
@@ -79,15 +79,17 @@ export const updateBook = (req: Request, res: Response) => {
   try {
     const books = readData();
     const bookId = parseInt(req.params.id, 10);
-    const { title, author, publisher, publishedDate, price, stock, imageUrl } =
-      req.body;
-
     const bookIndex = books.findIndex((b: any) => b.id === bookId);
 
     if (bookIndex === -1) {
       res.status(404).json({ message: "Book not found" });
       return;
     }
+
+    const { title, author, publisher, publishedDate, price, stock } = req.body;
+    const imageUrl = req.file
+      ? `/uploads/${req.file.filename}`
+      : books[bookIndex].imageUrl;
 
     books[bookIndex] = {
       ...books[bookIndex],
@@ -97,7 +99,7 @@ export const updateBook = (req: Request, res: Response) => {
       publishedDate: publishedDate || books[bookIndex].publishedDate,
       price: price || books[bookIndex].price,
       stock: stock || books[bookIndex].stock,
-      imageUrl: imageUrl || books[bookIndex].imageUrl,
+      imageUrl: imageUrl,
     };
     writeData(books);
 

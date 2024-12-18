@@ -6,8 +6,12 @@ import {
   updateBook,
   deleteBook,
 } from "../controllers/books";
+import { upload } from "../utils/upload";
 
 const router = express.Router();
+
+router.post("/", upload.single("image"), addBook);
+router.put("/:id", upload.single("image"), updateBook);
 
 router.get("/", getBooks);
 router.get("/:id", getBooksById);
