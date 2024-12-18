@@ -22,12 +22,23 @@ const deleteImageFile = (imagePath: string) => {
   }
 };
 
-export const getBooks = (req: Request, res: Response) => {
+export const getPaginatedBooks = (req: Request, res: Response) => {
   try {
     const books = readData();
-    res.status(200).json(books);
+    const page = parseInt(req.query.page as string, 10) || 1;
+    const limit = 10;
+    const startIndex = (page - 1) * limit;
+    const endIndex = startIndex + limit;
+
+    const paginatedBooks = books.slice(startIndex, endIndex);
+
+    res.status(200).json({
+      books: paginatedBooks,
+      totalPages: Math.ceil(books.length / limit),
+      currentPage: page,
+    });
   } catch (error) {
-    handleError(res, error, "Failed to retrieve book", 500);
+    handleError(res, error, "Failed to retrieve paginated books", 500);
   }
 };
 
