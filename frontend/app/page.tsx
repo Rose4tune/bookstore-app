@@ -49,22 +49,20 @@ const MainPage = () => {
 
   return (
     <div>
-      <Header
-        children={
-          <SearchContainer>
-            <select value={searchField} onChange={handleFieldChange}>
-              <option value="title">제목</option>
-              <option value="author">저자</option>
-            </select>
-            <input
-              type="text"
-              placeholder="검색어를 입력하세요"
-              value={searchQuery}
-              onChange={handleSearchChange}
-            />
-          </SearchContainer>
-        }
-      />
+      <Header>
+        <SearchContainer>
+          <select value={searchField} onChange={handleFieldChange}>
+            <option value="title">제목</option>
+            <option value="author">저자</option>
+          </select>
+          <input
+            type="text"
+            placeholder="검색어를 입력하세요"
+            value={searchQuery}
+            onChange={handleSearchChange}
+          />
+        </SearchContainer>
+      </Header>
       <MainContainer className="inner">
         {books.map((book) => (
           <BookCard
