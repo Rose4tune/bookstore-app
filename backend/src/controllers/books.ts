@@ -14,6 +14,14 @@ const writeData = (data: any) => {
   fs.writeFileSync(dataPath, JSON.stringify(data, null, 2), "utf-8");
 };
 
+const deleteImageFile = (imagePath: string) => {
+  const fullPath = path.join(process.cwd(), "public", imagePath);
+  if (fs.existsSync(fullPath)) {
+    fs.unlinkSync(fullPath);
+    console.log(`Image deleted: ${fullPath}`);
+  }
+};
+
 export const getBooks = (req: Request, res: Response) => {
   try {
     const books = readData();
@@ -122,6 +130,10 @@ export const deleteBook = (req: Request, res: Response) => {
     }
 
     const deletedBook = books.splice(bookIndex, 1)[0];
+
+    if (deletedBook.imageUrl) {
+      deleteImageFile(deletedBook.imageUrl);
+    }
 
     writeData(books);
 
