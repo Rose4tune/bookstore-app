@@ -2,7 +2,11 @@ import React from "react";
 import styled from "styled-components";
 import Link from "next/link";
 
-const Header = ({ children }: any) => {
+interface HeaderProps {
+  children?: ReactNode;
+}
+
+const Header: React.FC<HeaderProps> = ({ children }) => {
   return (
     <Wrap>
       <div className="flex">

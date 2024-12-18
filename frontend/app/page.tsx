@@ -11,10 +11,6 @@ type Book = {
   id: number;
   title: string;
   author: string;
-  publisher: string;
-  publishedDate: string;
-  price: number;
-  stock: number;
   imageUrl: string;
 };
 
@@ -53,26 +49,25 @@ const MainPage = () => {
 
   return (
     <div>
-      <Header
-        children={
-          <SearchContainer>
-            <select value={searchField} onChange={handleFieldChange}>
-              <option value="title">제목</option>
-              <option value="author">저자</option>
-            </select>
-            <input
-              type="text"
-              placeholder="검색어를 입력하세요"
-              value={searchQuery}
-              onChange={handleSearchChange}
-            />
-          </SearchContainer>
-        }
-      />
+      <Header>
+        <SearchContainer>
+          <select value={searchField} onChange={handleFieldChange}>
+            <option value="title">제목</option>
+            <option value="author">저자</option>
+          </select>
+          <input
+            type="text"
+            placeholder="검색어를 입력하세요"
+            value={searchQuery}
+            onChange={handleSearchChange}
+          />
+        </SearchContainer>
+      </Header>
       <MainContainer className="inner">
         {books.map((book) => (
           <BookCard
             key={book.id}
+            id={book.id}
             title={book.title}
             author={book.author}
             imageUrl={book.imageUrl}
