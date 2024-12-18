@@ -23,4 +23,11 @@ body {
 .inner {
   max-width: 51.875rem;
   margin: 0 auto;
+  padding: 2rem 2rem 0;
+}
+
+@media (min-width: 1200px) {
+  .inner {
+    padding: 0;
+  }
 }

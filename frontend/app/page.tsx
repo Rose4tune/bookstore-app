@@ -5,6 +5,7 @@ import BookCard from "../components/BookCard";
 import PaginationComponent from "../components/Pagination";
 import axios from "../utils/api";
 import styled from "styled-components";
+import Link from "next/link";
 
 type Book = {
   id: number;
@@ -54,7 +55,9 @@ const MainPage = () => {
     <div>
       <Header>
         <div className="flex">
-          <h1 className="text-2xl font-bold">RGT 문고</h1>
+          <Link href="/" passHref>
+            <h1 className="text-2xl font-bold hover:text-gray-500">RGT 문고</h1>
+          </Link>
           <SearchContainer>
             <select value={searchField} onChange={handleFieldChange}>
               <option value="title">제목</option>
@@ -88,16 +91,9 @@ const MainPage = () => {
   );
 };
 
-const MainContainer = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(8.5rem, 1fr));
-  gap: 1rem;
-  padding: 1rem;
-  margin: 0 auto;
-`;
-
 const Header = styled.div`
   border-bottom: 1px solid lightgray;
+  padding: 0 2rem;
 
   & > div {
     display: flex;
@@ -105,6 +101,12 @@ const Header = styled.div`
     max-width: 75rem;
     padding: 1.5625rem 0;
     margin: 0 auto;
+  }
+
+  @media (min-width: 1200px) {
+    .inner {
+      padding: 0;
+    }
   }
 `;
 
@@ -123,6 +125,13 @@ const SearchContainer = styled.div`
   input {
     width: 100%;
   }
+`;
+
+const MainContainer = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(8.5rem, 1fr));
+  gap: 1rem;
+  min-height: 39.375rem;
 `;
 
 export default MainPage;

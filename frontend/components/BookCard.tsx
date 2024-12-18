@@ -17,7 +17,7 @@ const BookCard = ({ title, author, imageUrl }: BookProps) => {
     <StyledCard>
       <StyledCardMedia image={`${backendUrl}${imageUrl}`} title={title} />
       <CardContent>
-        <Typography variant="h6" component="div">
+        <Typography variant="h6" component="p">
           {title}
         </Typography>
         <Typography variant="body2" color="text.secondary">
@@ -30,7 +30,13 @@ const BookCard = ({ title, author, imageUrl }: BookProps) => {
 
 const StyledCard = styled(Card)`
   width: 100%;
-  margin: 0 auto;
+  max-height: 17.5rem;
+
+  p {
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
 `;
 
 const StyledCardMedia = styled(CardMedia)`
