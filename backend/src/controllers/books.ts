@@ -27,14 +27,25 @@ export const getPaginatedBooks = (req: Request, res: Response) => {
     const books = readData();
     const page = parseInt(req.query.page as string, 10) || 1;
     const limit = 10;
-    const startIndex = (page - 1) * limit;
-    const endIndex = startIndex + limit;
+    const searchQuery = (req.query.search as string) || "";
+    const searchField = (req.query.searchField as string) || "title";
 
-    const paginatedBooks = books.slice(startIndex, endIndex);
+    const filteredBooks = books.filter((book: any) => {
+      if (!searchQuery) return true;
+      if (searchField === "title") {
+        return book.title.toLowerCase().includes(searchQuery.toLowerCase());
+      } else if (searchField === "author") {
+        return book.author.toLowerCase().includes(searchQuery.toLowerCase());
+      }
+      return false;
+    });
+
+    const startIndex = (page - 1) * limit;
+    const paginatedBooks = filteredBooks.slice(startIndex, startIndex + limit);
 
     res.status(200).json({
       books: paginatedBooks,
-      totalPages: Math.ceil(books.length / limit),
+      totalPages: Math.ceil(filteredBooks.length / limit),
       currentPage: page,
     });
   } catch (error) {
