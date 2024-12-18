@@ -34,7 +34,7 @@ const BookDetailPage = () => {
     image: null as File | null,
   });
 
-  const fetchBook = async () => {
+  const fetchBook = useCallback(async () => {
     try {
       const response = await axios.get(`/api/books/${params.id}`);
       setBook(response.data);
@@ -43,15 +43,15 @@ const BookDetailPage = () => {
         author: response.data.author,
         publisher: response.data.publisher,
         publishedDate: response.data.publishedDate,
-        price: response.data.price,
-        stock: response.data.stock,
+        price: response.data.price.toString(),
+        stock: response.data.stock.toString(),
         image: null,
       });
       setPreviewUrl(null);
     } catch (error) {
       console.error("Failed to fetch book:", error);
     }
-  };
+  }, [params.id]);
 
   const handleEditToggle = () => {
     setIsEditing((prev) => !prev);
