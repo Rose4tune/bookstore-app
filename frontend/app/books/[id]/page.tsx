@@ -30,6 +30,7 @@ const BookDetailPage = () => {
     publishedDate: "",
     price: "",
     stock: "",
+    image: null as File | null,
   });
 
   const fetchBook = async () => {
@@ -43,6 +44,7 @@ const BookDetailPage = () => {
         publishedDate: response.data.publishedDate,
         price: response.data.price,
         stock: response.data.stock,
+        image: null,
       });
     } catch (error) {
       console.error("Failed to fetch book:", error);
@@ -58,9 +60,32 @@ const BookDetailPage = () => {
     setFormData({ ...formData, [name]: value });
   };
 
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files.length > 0) {
+      setFormData({ ...formData, image: e.target.files[0] });
+    }
+  };
+
   const handleUpdate = async () => {
     try {
-      await axios.put(`/api/books/${params.id}`, formData);
+      const formDataToSend = new FormData();
+      formDataToSend.append("title", formData.title);
+      formDataToSend.append("author", formData.author);
+      formDataToSend.append("publisher", formData.publisher);
+      formDataToSend.append("publishedDate", formData.publishedDate);
+      formDataToSend.append("price", formData.price);
+      formDataToSend.append("stock", formData.stock);
+
+      if (formData.image) {
+        formDataToSend.append("image", formData.image);
+      }
+
+      await axios.put(`/api/books/${params.id}`, formDataToSend, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
       setIsEditing(false);
       fetchBook();
     } catch (error) {
@@ -87,6 +112,7 @@ const BookDetailPage = () => {
       publishedDate: book.publishedDate,
       price: book.price.toString(),
       stock: book.stock.toString(),
+      image: null,
     });
   }, [book]);
 
@@ -104,11 +130,11 @@ const BookDetailPage = () => {
     <div>
       <Header />
       <DetailContainer className="inner">
-        <CardMedia
-          component="img"
-          height="400"
+        <StyledCardMedia
+          // component="img"
+          // height="400"
           image={`${process.env.NEXT_PUBLIC_BACKEND_URL}${book.imageUrl}`}
-          alt={book.title}
+          title={book.title}
         />
         <Details>
           {isEditing ? (
@@ -149,6 +175,7 @@ const BookDetailPage = () => {
                 value={formData.stock}
                 onChange={handleInputChange}
               />
+              <input type="file" accept="image/*" onChange={handleFileChange} />
               <Button
                 variant="contained"
                 color="primary"
@@ -202,10 +229,13 @@ export default BookDetailPage;
 const DetailContainer = styled.div`
   display: flex;
   gap: 2rem;
+`;
 
-  & > div {
-    width: 100%;
-  }
+const StyledCardMedia = styled(CardMedia)`
+  width: 50%;
+  max-width: 28.125rem;
+  height: 40.625rem;
+  object-fit: cover;
 `;
 
 const Details = styled.div`
