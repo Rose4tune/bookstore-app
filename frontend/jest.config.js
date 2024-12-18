@@ -15,6 +15,10 @@ const customJestConfig = {
   transform: {
     "^.+\\.(ts|tsx)$": "ts-jest",
   },
+  testMatch: [
+    "**/__tests__/**/*.[jt]s?(x)",
+    "**/?(*.)+(spec|test).[jt]s?(x)"
+  ],
 };
 
 module.exports = createJestConfig(customJestConfig);
