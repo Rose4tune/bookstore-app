@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import styled from "styled-components";
 import axios from "@/utils/api";
 import Header from "@/components/Header";
@@ -18,6 +19,7 @@ type Book = {
 };
 
 const BookDetailPage = ({ params }: { params: { id: string } }) => {
+  const router = useRouter();
   const [book, setBook] = useState<Book | null>(null);
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState({
@@ -62,6 +64,15 @@ const BookDetailPage = ({ params }: { params: { id: string } }) => {
       fetchBook();
     } catch (error) {
       console.error("Failed to update book:", error);
+    }
+  };
+
+  const handleDelete = async () => {
+    try {
+      await axios.delete(`/api/books/${params.id}`);
+      router.push("/");
+    } catch (error) {
+      console.error("Failed to delete book:", error);
     }
   };
 
@@ -143,7 +154,11 @@ const BookDetailPage = ({ params }: { params: { id: string } }) => {
               >
                 수정하기
               </Button>
-              <Button variant="contained" color="secondary">
+              <Button
+                variant="contained"
+                color="secondary"
+                onClick={handleDelete}
+              >
                 삭제하기
               </Button>
             </>
