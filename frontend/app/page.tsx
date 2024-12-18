@@ -11,10 +11,6 @@ type Book = {
   id: number;
   title: string;
   author: string;
-  publisher: string;
-  publishedDate: string;
-  price: number;
-  stock: number;
   imageUrl: string;
 };
 
