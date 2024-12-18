@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import styled from "styled-components";
 import axios from "@/utils/api";
@@ -76,6 +76,19 @@ const BookDetailPage = ({ params }: { params: { id: string } }) => {
     }
   };
 
+  const handleCancle = useCallback(() => {
+    if (!book) return;
+    setIsEditing(false);
+    setFormData({
+      title: book.title,
+      author: book.author,
+      publisher: book.publisher,
+      publishedDate: book.publishedDate,
+      price: book.price.toString(),
+      stock: book.stock.toString(),
+    });
+  }, [book]);
+
   useEffect(() => {
     fetchBook();
   }, []);
@@ -137,6 +150,13 @@ const BookDetailPage = ({ params }: { params: { id: string } }) => {
                 onClick={handleUpdate}
               >
                 저장하기
+              </Button>
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={handleCancle}
+              >
+                수정 취소
               </Button>
             </EditForm>
           ) : (
