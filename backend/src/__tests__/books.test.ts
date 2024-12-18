@@ -20,7 +20,7 @@ describe("Books API", () => {
     expect(response.body.message).toBe("Book not found");
   });
 
-  // 실행 될 때마다 json에 추가되서 가려놓음 / 테스트 통과
+  // 실행 될 때 마다 json에 추가되서 가려놓음 / 테스트 통과
   // it("POST /api/books - add a new book", async () => {
   //   const newBook = {
   //     title: "데미안",
@@ -45,5 +45,28 @@ describe("Books API", () => {
 
     expect(response.status).toBe(400);
     expect(response.body.message).toBe("Missing required fields");
+  });
+
+  // 실행 될 때 마다 json 변경되어서 가려놓음 / 테스트 통과
+  // it("PUT /api/books/1 - update a book", async () => {
+  //   const updatedBook = {
+  //     title: "Updated Title",
+  //     price: 15000,
+  //   };
+
+  //   const response = await request(app).put("/api/books/1").send(updatedBook);
+
+  //   expect(response.status).toBe(200);
+  //   expect(response.body.title).toBe("Updated Title");
+  //   expect(response.body.price).toBe(15000);
+  // });
+
+  it("return 404 if book is not found", async () => {
+    const response = await request(app)
+      .put("/api/books/999")
+      .send({ title: "Non-existing Book" });
+
+    expect(response.status).toBe(404);
+    expect(response.body.message).toBe("Book not found");
   });
 });

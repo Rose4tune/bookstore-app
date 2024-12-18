@@ -74,3 +74,35 @@ export const addBook = (req: Request, res: Response) => {
     handleError(res, error, "Failed to add book", 500);
   }
 };
+
+export const updateBook = (req: Request, res: Response) => {
+  try {
+    const books = readData();
+    const bookId = parseInt(req.params.id, 10);
+    const { title, author, publisher, publishedDate, price, stock, imageUrl } =
+      req.body;
+
+    const bookIndex = books.findIndex((b: any) => b.id === bookId);
+
+    if (bookIndex === -1) {
+      res.status(404).json({ message: "Book not found" });
+      return;
+    }
+
+    books[bookIndex] = {
+      ...books[bookIndex],
+      title: title || books[bookIndex].title,
+      author: author || books[bookIndex].author,
+      publisher: publisher || books[bookIndex].publisher,
+      publishedDate: publishedDate || books[bookIndex].publishedDate,
+      price: price || books[bookIndex].price,
+      stock: stock || books[bookIndex].stock,
+      imageUrl: imageUrl || books[bookIndex].imageUrl,
+    };
+    writeData(books);
+
+    res.status(200).json(books[bookIndex]);
+  } catch (error) {
+    handleError(res, error, "Failed to add book", 500);
+  }
+};
