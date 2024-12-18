@@ -1,5 +1,5 @@
 import request from "supertest";
-import app from "../src/server";
+import app from "../server";
 
 describe("GET /api/books", () => {
   it("should return a list of books with status 200", async () => {
