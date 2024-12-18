@@ -23,6 +23,7 @@ const BookDetailPage = () => {
   const params = useParams();
   const [book, setBook] = useState<Book | null>(null);
   const [isEditing, setIsEditing] = useState(false);
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [formData, setFormData] = useState({
     title: "",
     author: "",
@@ -46,6 +47,7 @@ const BookDetailPage = () => {
         stock: response.data.stock,
         image: null,
       });
+      setPreviewUrl(null);
     } catch (error) {
       console.error("Failed to fetch book:", error);
     }
@@ -62,7 +64,14 @@ const BookDetailPage = () => {
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
-      setFormData({ ...formData, image: e.target.files[0] });
+      const file = e.target.files[0];
+      setFormData({ ...formData, image: file });
+
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setPreviewUrl(reader.result as string);
+      };
+      reader.readAsDataURL(file);
     }
   };
 
@@ -105,6 +114,7 @@ const BookDetailPage = () => {
   const handleCancle = useCallback(() => {
     if (!book) return;
     setIsEditing(false);
+    setPreviewUrl(null);
     setFormData({
       title: book.title,
       author: book.author,
@@ -131,9 +141,11 @@ const BookDetailPage = () => {
       <Header />
       <DetailContainer className="inner">
         <StyledCardMedia
-          // component="img"
-          // height="400"
-          image={`${process.env.NEXT_PUBLIC_BACKEND_URL}${book.imageUrl}`}
+          image={
+            previewUrl
+              ? previewUrl
+              : `${process.env.NEXT_PUBLIC_BACKEND_URL}${book.imageUrl}`
+          }
           title={book.title}
         />
         <Details>
