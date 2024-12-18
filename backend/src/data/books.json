@@ -1,0 +1,122 @@
+[
+  {
+    "id": 1,
+    "title": "소년이 온다",
+    "author": "한강",
+    "publisher": "창비",
+    "publishedDate": "2024-12-16",
+    "price": 10000,
+    "stock": 10,
+    "imageUrl": "/uploads/image.jpg"
+  },
+  {
+    "id": 2,
+    "title": "데미안",
+    "author": "헤르만 헤세",
+    "publisher": "을유문화사",
+    "publishedDate": "2024-11-10",
+    "price": 12000,
+    "stock": 8,
+    "imageUrl": "/uploads/image.jpg"
+  },
+  {
+    "id": 3,
+    "title": "소년이 온다3",
+    "author": "한강3",
+    "publisher": "창비3",
+    "publishedDate": "2024-12-16",
+    "price": 10000,
+    "stock": 10,
+    "imageUrl": "/uploads/image.jpg"
+  },
+  {
+    "id": 4,
+    "title": "데미안4",
+    "author": "헤르만 헤세4",
+    "publisher": "을유문화사4",
+    "publishedDate": "2024-11-10",
+    "price": 12000,
+    "stock": 8,
+    "imageUrl": "/uploads/image.jpg"
+  },
+  {
+    "id": 11,
+    "title": "소년이 온다11",
+    "author": "한강11",
+    "publisher": "창비",
+    "publishedDate": "2024-12-16",
+    "price": 10000,
+    "stock": 10,
+    "imageUrl": "/uploads/image.jpg"
+  },
+  {
+    "id": 12,
+    "title": "데미안12",
+    "author": "헤르만 헤세12",
+    "publisher": "을유문화사",
+    "publishedDate": "2024-11-10",
+    "price": 12000,
+    "stock": 8,
+    "imageUrl": "/uploads/image.jpg"
+  },
+  {
+    "id": 13,
+    "title": "소년이 온다13",
+    "author": "한강13",
+    "publisher": "창비3",
+    "publishedDate": "2024-12-16",
+    "price": 10000,
+    "stock": 10,
+    "imageUrl": "/uploads/image.jpg"
+  },
+  {
+    "id": 14,
+    "title": "데미안14",
+    "author": "헤르만 헤세14",
+    "publisher": "을유문화사4",
+    "publishedDate": "2024-11-10",
+    "price": 12000,
+    "stock": 8,
+    "imageUrl": "/uploads/image.jpg"
+  },
+  {
+    "id": 123,
+    "title": "소년이 온다123",
+    "author": "한강13",
+    "publisher": "창비3",
+    "publishedDate": "2024-12-16",
+    "price": 10000,
+    "stock": 10,
+    "imageUrl": "/uploads/image.jpg"
+  },
+  {
+    "id": 124,
+    "title": "데미안124",
+    "author": "헤르만 헤세14",
+    "publisher": "을유문화사4",
+    "publishedDate": "2024-11-10",
+    "price": 12000,
+    "stock": 8,
+    "imageUrl": "/uploads/image.jpg"
+  },
+  {
+    "id": 1234,
+    "title": "소년이 온다1234",
+    "author": "한강134",
+    "publisher": "창비34",
+    "publishedDate": "2024-12-16",
+    "price": 10000,
+    "stock": 10,
+    "imageUrl": "/uploads/image.jpg"
+  },
+  {
+    "id": 1245,
+    "title": "데미안1246",
+    "author": "헤르만 헤세146",
+    "publisher": "을유문화사4",
+    "publishedDate": "2024-11-10",
+    "price": 12000,
+    "stock": 8,
+    "imageUrl": "/uploads/image.jpg"
+  }
+]

@@ -1,0 +1,45 @@
+name: Backend CI
+
+on:
+  push:
+    branches:
+      - main
+      - dev
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18"
+
+      - name: Install Dependencies
+        run: |
+          cd backend
+          npm install
+
+      - name: Build TypeScript Project
+        run: |
+          cd backend
+          npm run build
+
+      - name: Test Backend Server
+        run: |
+          cd backend
+          node dist/server.js &
+          sleep 5 # 서버가 실행될 시간을 확보
+          curl -I http://localhost:5001/api/books || exit 1
+
+      - name: Run Unit Tests
+        run: |
+          cd backend
+          npm run test
