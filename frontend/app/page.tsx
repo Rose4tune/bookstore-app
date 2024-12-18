@@ -1,3 +1,17 @@
+"use client";
+
+import React from "react";
+import Button from "../components/Button";
+
 export default function Home() {
-  return <h1>This is Book Store</h1>;
+  const handleButtonClick = () => {
+    alert("Button Clicked!");
+  };
+
+  return (
+    <div style={{ padding: "2rem" }}>
+      <h1>Test Button Component</h1>
+      <Button label="Click Me" onClick={handleButtonClick} />
+    </div>
+  );
 }
