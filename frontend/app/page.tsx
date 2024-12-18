@@ -5,7 +5,7 @@ import BookCard from "../components/BookCard";
 import PaginationComponent from "../components/Pagination";
 import axios from "../utils/api";
 import styled from "styled-components";
-import Link from "next/link";
+import Header from "@/components/Header";
 
 type Book = {
   id: number;
@@ -53,11 +53,8 @@ const MainPage = () => {
 
   return (
     <div>
-      <Header>
-        <div className="flex">
-          <Link href="/" passHref>
-            <h1 className="text-2xl font-bold hover:text-gray-500">RGT 문고</h1>
-          </Link>
+      <Header
+        children={
           <SearchContainer>
             <select value={searchField} onChange={handleFieldChange}>
               <option value="title">제목</option>
@@ -70,8 +67,8 @@ const MainPage = () => {
               onChange={handleSearchChange}
             />
           </SearchContainer>
-        </div>
-      </Header>
+        }
+      />
       <MainContainer className="inner">
         {books.map((book) => (
           <BookCard
@@ -90,25 +87,6 @@ const MainPage = () => {
     </div>
   );
 };
-
-const Header = styled.div`
-  border-bottom: 1px solid lightgray;
-  padding: 0 2rem;
-
-  & > div {
-    display: flex;
-    justify-content: space-between;
-    max-width: 75rem;
-    padding: 1.5625rem 0;
-    margin: 0 auto;
-  }
-
-  @media (min-width: 1200px) {
-    .inner {
-      padding: 0;
-    }
-  }
-`;
 
 const SearchContainer = styled.div`
   display: flex;
