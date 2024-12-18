@@ -106,3 +106,25 @@ export const updateBook = (req: Request, res: Response) => {
     handleError(res, error, "Failed to add book", 500);
   }
 };
+
+export const deleteBook = (req: Request, res: Response) => {
+  try {
+    const books = readData();
+    const bookId = parseInt(req.params.id, 10);
+
+    const bookIndex = books.findIndex((b: any) => b.id === bookId);
+
+    if (bookIndex === -1) {
+      res.status(404).json({ message: "Book not found" });
+      return;
+    }
+
+    const deletedBook = books.splice(bookIndex, 1)[0];
+
+    writeData(books);
+
+    res.status(200).json({ message: "Book deleted successfully", deletedBook });
+  } catch (error) {
+    handleError(res, error, "Failed to delete book", 500);
+  }
+};

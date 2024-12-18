@@ -61,10 +61,26 @@ describe("Books API", () => {
   //   expect(response.body.price).toBe(15000);
   // });
 
-  it("return 404 if book is not found", async () => {
+  it("PUT /api/books/1 - return 404 if book is not found", async () => {
     const response = await request(app)
       .put("/api/books/999")
       .send({ title: "Non-existing Book" });
+
+    expect(response.status).toBe(404);
+    expect(response.body.message).toBe("Book not found");
+  });
+
+  // 실행 될 때 마다 json 변경되어서 가려놓음 / 테스트 통과
+  // it("DELETE /api/books/:id - delete a book", async () => {
+  //   const response = await request(app).delete("/api/books/1");
+
+  //   expect(response.status).toBe(200);
+  //   expect(response.body.message).toBe("Book deleted successfully");
+  //   expect(response.body.deletedBook.id).toBe(1);
+  // });
+
+  it("DELETE /api/books/:id - return 404 if book is not found", async () => {
+    const response = await request(app).delete("/api/books/999");
 
     expect(response.status).toBe(404);
     expect(response.body.message).toBe("Book not found");
