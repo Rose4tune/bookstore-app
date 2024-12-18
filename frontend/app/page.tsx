@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import BookCard from "../components/BookCard";
 import PaginationComponent from "../components/Pagination";
 import axios from "../utils/api";
+import styled from "styled-components";
 
 type Book = {
   id: number;
@@ -37,9 +38,13 @@ const MainPage = () => {
   }, [page]);
 
   return (
-    <div className="min-h-screen p-4 bg-gray-50">
-      <h1 className="text-2xl font-bold text-center mb-8">RGT 문고</h1>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+    <div>
+      <Header>
+        <div className="flex">
+          <h1 className="text-2xl font-bold">RGT 문고</h1>
+        </div>
+      </Header>
+      <MainContainer className="inner">
         {books.map((book) => (
           <BookCard
             key={book.id}
@@ -48,7 +53,7 @@ const MainPage = () => {
             imageUrl={book.imageUrl}
           />
         ))}
-      </div>
+      </MainContainer>
       <PaginationComponent
         count={totalPages}
         page={page}
@@ -57,5 +62,23 @@ const MainPage = () => {
     </div>
   );
 };
+
+const MainContainer = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(8.5rem, 1fr));
+  gap: 1rem;
+  padding: 1rem;
+  margin: 0 auto;
+`;
+
+const Header = styled.div`
+  border-bottom: 1px solid lightgray;
+
+  & > div {
+    max-width: 75rem;
+    padding: 1.5625rem 0;
+    margin: 0 auto;
+  }
+`;
 
 export default MainPage;

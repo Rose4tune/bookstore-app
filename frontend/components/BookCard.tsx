@@ -1,8 +1,8 @@
 "use client";
 
 import React from "react";
-import Image from "next/image";
-import { Card, CardContent, Typography } from "@mui/material";
+import styled from "styled-components";
+import { Card, CardMedia, CardContent, Typography } from "@mui/material";
 
 type BookProps = {
   title: string;
@@ -12,28 +12,30 @@ type BookProps = {
 
 const BookCard = ({ title, author, imageUrl }: BookProps) => {
   const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
+
   return (
-    <Card>
-      <div className="w-full h-48 relative">
-        <Image
-          src={`${backendUrl}${imageUrl}`}
-          alt={title}
-          width={150}
-          height={200}
-          layout="responsive"
-          objectFit="cover"
-        />
-      </div>
-      <CardContent className="text-center bg-white">
+    <StyledCard>
+      <StyledCardMedia image={`${backendUrl}${imageUrl}`} title={title} />
+      <CardContent>
         <Typography variant="h6" component="div">
           {title}
         </Typography>
-        <Typography color="text.secondary" className="text-sm">
+        <Typography variant="body2" color="text.secondary">
           {author}
         </Typography>
       </CardContent>
-    </Card>
+    </StyledCard>
   );
 };
+
+const StyledCard = styled(Card)`
+  width: 100%;
+  margin: 0 auto;
+`;
+
+const StyledCardMedia = styled(CardMedia)`
+  height: 12.5rem;
+  object-fit: cover;
+`;
 
 export default BookCard;
