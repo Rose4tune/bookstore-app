@@ -132,7 +132,7 @@ const BookDetailPage = () => {
 
   useEffect(() => {
     fetchBook();
-  }, []);
+  }, [fetchBook]);
 
   if (!book) return <div>Loading...</div>;
 
