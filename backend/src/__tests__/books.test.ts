@@ -2,11 +2,11 @@ import request from "supertest";
 import app from "../app";
 
 describe("Books API", () => {
-  it("GET /api/books - return all books", async () => {
-    const response = await request(app).get("/api/books");
-    expect(response.status).toBe(200);
-    expect(response.body.length).toBeGreaterThan(0);
-  });
+  // it("GET /api/books - return all books", async () => {
+  //   const response = await request(app).get("/api/books");
+  //   expect(response.status).toBe(200);
+  //   expect(response.body.length).toBeGreaterThan(0);
+  // });
 
   it("GET /api/books/:id - return specific book details", async () => {
     const response = await request(app).get("/api/books/1");

@@ -1,6 +1,6 @@
 import express from "express";
 import {
-  getBooks,
+  getPaginatedBooks,
   getBooksById,
   addBook,
   updateBook,
@@ -13,7 +13,7 @@ const router = express.Router();
 router.post("/", upload.single("image"), addBook);
 router.put("/:id", upload.single("image"), updateBook);
 
-router.get("/", getBooks);
+router.get("/", getPaginatedBooks);
 router.get("/:id", getBooksById);
 router.post("/", addBook);
 router.put("/:id", updateBook);

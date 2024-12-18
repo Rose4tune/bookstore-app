@@ -19,3 +19,17 @@ body {
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+.inner {
+  max-width: 51.875rem;
+  margin: 0 auto;
+  padding: 0 2rem;
+  margin-top: 3rem;
+}
+
+@media (min-width: 1200px) {
+  .inner {
+    padding: 0;
+    margin-top: 5rem;
+  }
+}
