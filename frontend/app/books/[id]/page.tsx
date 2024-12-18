@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useCallback, useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import styled from "styled-components";
 import axios from "@/utils/api";
 import Header from "@/components/Header";
@@ -18,8 +18,9 @@ type Book = {
   imageUrl: string;
 };
 
-const BookDetailPage = ({ params }: { params: { id: string } }) => {
+const BookDetailPage = () => {
   const router = useRouter();
+  const params = useParams();
   const [book, setBook] = useState<Book | null>(null);
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState({
@@ -89,6 +90,10 @@ const BookDetailPage = ({ params }: { params: { id: string } }) => {
     });
   }, [book]);
 
+  const handleGoBack = () => {
+    router.back();
+  };
+
   useEffect(() => {
     fetchBook();
   }, []);
@@ -98,7 +103,7 @@ const BookDetailPage = ({ params }: { params: { id: string } }) => {
   return (
     <div>
       <Header />
-      <DetailContainer>
+      <DetailContainer className="inner">
         <CardMedia
           component="img"
           height="400"
@@ -153,10 +158,13 @@ const BookDetailPage = ({ params }: { params: { id: string } }) => {
               </Button>
               <Button
                 variant="contained"
-                color="primary"
+                color="secondary"
                 onClick={handleCancle}
               >
                 수정 취소
+              </Button>
+              <Button variant="contained" color="error" onClick={handleDelete}>
+                삭제하기
               </Button>
             </EditForm>
           ) : (
@@ -177,9 +185,9 @@ const BookDetailPage = ({ params }: { params: { id: string } }) => {
               <Button
                 variant="contained"
                 color="secondary"
-                onClick={handleDelete}
+                onClick={handleGoBack}
               >
-                삭제하기
+                돌아가기
               </Button>
             </>
           )}
@@ -194,9 +202,10 @@ export default BookDetailPage;
 const DetailContainer = styled.div`
   display: flex;
   gap: 2rem;
-  padding: 2rem;
-  max-width: 75rem;
-  margin: 0 auto;
+
+  & > div {
+    width: 100%;
+  }
 `;
 
 const Details = styled.div`
