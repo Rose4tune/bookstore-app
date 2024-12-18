@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "title": "소년이 온다",
+    "author": "한강",
+    "publisher": "창비",
+    "publishedDate": "2024-12-16",
+    "price": 10000,
+    "stock": 10,
+    "imageUrl": "/uploads/book-1.jpg"
+  },
+  {
+    "id": 2,
+    "title": "데미안",
+    "author": "헤르만 헤세",
+    "publisher": "을유문화사",
+    "publishedDate": "2024-11-10",
+    "price": 12000,
+    "stock": 8,
+    "imageUrl": "/uploads/book-2.jpg"
+  }
+]
