@@ -11,7 +11,7 @@ const Header: React.FC<HeaderProps> = ({ children }) => {
     <Wrap>
       <div className="flex">
         <Link href="/">
-          <h1 className="text-2xl font-bold hover:text-gray-500">RGT 문고</h1>
+          <h1 className="text-2xl font-bold hover:text-gray-500">ROSE 문고</h1>
         </Link>
         {children}
       </div>
